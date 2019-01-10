@@ -188,7 +188,7 @@
                     "enableATP": {
                         "value": "[parameters('enableATP')]"
                     },
-                    "allowAazureIps": {
+                    "allowAzureIps": {
                         "value": "[parameters('allowAzureIps')]"
                     }                  
                 }
