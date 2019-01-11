@@ -32,16 +32,24 @@
         },
         "collation": {
             "type": "string",
-            "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "metadata": {
+                "description": "The collation of the database(s)."
+            }
         },
-
         "managedInstanceName": {
             "type": "string",
-            "defaultValue": "ManagedInstanceName"
+            "defaultValue": "ManagedInstanceName",
+            "metadata": {
+                "description": "Name of the managed instance."
+            }
         },
         "skuName": {
             "type": "string",
             "defaultValue": "GP_Gen4",
+            "metadata": {
+                "description": "GP: General Purpose, BC: Business Critical"
+            },
             "allowedValues": [
             	"GP_Gen4",
                 "GP_Gen5",
@@ -52,6 +60,9 @@
         "skuEdition": {
             "type": "string",
             "defaultValue": "GeneralPurpose",
+            "metadata": {
+                "description": "SKU Edition. Business Critical is for higher I/O requirement databases, where as General Purpose is for databases with standard I/O requirements."
+            },
             "allowedValues": [
             	"GeneralPurpose",
            	    "BusinessCritical"
@@ -59,11 +70,17 @@
         },
         "storageSizeInGB": {
             "type": "int",
-            "defaultValue": "32"
+            "defaultValue": 32,
+            "metadata": {
+                "description": "Total storage size of the managed instance in gigabytes."
+            }
         },
         "vCores": {
             "type": "int",
-            "defaultValue": "16"
+            "defaultValue": 16,
+            "metadata": {
+                "description": "Number of vCores in the managed instance."
+            }
         },
         "licenseType": {
             "type": "string",
@@ -71,7 +88,14 @@
         },
         "hardwareFamily": {
             "type": "string",
-            "defaultValue": "Gen4"
+            "defaultValue": "Gen4",
+            "metadata": {
+                "description": "Hardware family of the managed instance. Gen4 or Gen5."
+            },
+            "allowedValues": [
+            	"Gen4",
+           	    "Gen5"
+            ]
         },
         "dnsZonePartner": {
             "type": "string",
@@ -79,7 +103,10 @@
         },
         "databaseName": {
             "type": "string",
-            "defaultValue": "DBnameunique"
+            "defaultValue": "DBnameunique",
+            "metadata": {
+                "description": "Name of the database(s) created."
+            }
         },
         "elasticPoolName": {
             "type": "string",
@@ -167,7 +194,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('templateUri'), 'nested-sqldb.json')]",
+                    "uri": "[concat(variables('templateUri'), 'nested-sqldbelastic.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
