@@ -109,22 +109,22 @@
                 "version": "12.0"
             },
             "resources": [
-                 {
-            "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-            ],
-            "location": "[variables('resourceGroupLocation')]",
-            "name": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]",
-            "properties": {
-                "edition": "[parameters('elasticPoolEdition')]",
-                "dtu": "[parameters('poolDtu')]",
-                "databaseDtuMin": "[parameters('databaseDtuMin')]",
-                "databaseDtuMax": "[parameters('databaseDtuMax')]"
-            },
-            "type": "Microsoft.Sql/servers/elasticPools"
-        },
+                {
+                    "condition": "[equals(parameters('elasticPool'), 'Yes')]",
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                    ],
+                    "location": "[variables('resourceGroupLocation')]",
+                    "name": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]",
+                    "properties": {
+                        "edition": "[parameters('elasticPoolEdition')]",
+                        "dtu": "[parameters('poolDtu')]",
+                        "databaseDtuMin": "[parameters('databaseDtuMin')]",
+                        "databaseDtuMax": "[parameters('databaseDtuMax')]"
+                    },
+                    "type": "Microsoft.Sql/servers/elasticPools"
+                },
                 {
                     "condition": "[parameters('allowAzureIps')]",
                     "apiVersion": "2014-04-01-preview",
@@ -157,9 +157,9 @@
                 }
             ],
             "type": "Microsoft.Sql/servers"
-        },  
+        },
         {
-            "apiVersion": "2014-04-01-preview",
+            "apiVersion": "2017-03-01-preview",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
                 "[resourceId('Microsoft.Sql/servers/elasticpools', parameters('serverName'), parameters('elasticPoolName'))]"
@@ -175,7 +175,7 @@
                 "readScale": "[parameters('readScaleOut')]",
                 "readReplicaCount": "[parameters('numberOfReplicas')]",
                 "requestedServiceObjectiveName": "ElasticPool",
-                "elasticPoolName": "[parameters('elasticPoolName')]"
+                "elasticPoolName": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]"
             },
             "sku": {
                 "name": "[parameters('DBskuName')]",
