@@ -159,7 +159,7 @@
             "type": "Microsoft.Sql/servers"
         },  
         {
-            "apiVersion": "2017-03-01-preview",
+            "apiVersion": "2014-04-01-preview",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
                 "[resourceId('Microsoft.Sql/servers/elasticpools', parameters('serverName'), parameters('elasticPoolName'))]"
