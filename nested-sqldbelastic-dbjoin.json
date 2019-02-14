@@ -114,7 +114,7 @@
                     "apiVersion": "2017-10-01-preview",
                     "dependsOn": [
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
-                        "[concat('Microsoft.Sql/servers/elasticPools/', parameters('elasticPoolName'))]"
+                        "[concat('Microsoft.Sql/servers/elasticPools/', parameters('serverName'), '/', parameters('elasticPoolName'))]"
                     ],
                     "location": "[variables('resourceGroupLocation')]",
                     "name": "[parameters('databaseName')]",
