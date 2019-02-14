@@ -164,7 +164,7 @@
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
             "location": "[variables('resourceGroupLocation')]",
-            "name": "[parameters('databaseName')]",
+            "name": "[concat ('Microsoft.Sql/servers/', parameters('serverName'), parameters('databaseName'))]",
             "properties": {
                 "collation": "[parameters('collation')]",
                 "maxSizeBytes": "[parameters('maxSizeBytes')]",
