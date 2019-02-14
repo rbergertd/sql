@@ -157,8 +157,7 @@
                 }
             ],
             "type": "Microsoft.Sql/servers"
-        },
-    
+        },  
         {
             "apiVersion": "2017-03-01-preview",
             "dependsOn": [
@@ -176,7 +175,7 @@
                 "readScale": "[parameters('readScaleOut')]",
                 "readReplicaCount": "[parameters('numberOfReplicas')]",
                 "requestedServiceObjectiveName": "ElasticPool",
-                "elasticPoolName": "[parameters('elasticPoolName')]"
+                "elasticPoolName": "[concat (parameters('serverName'), '/', parameters('elasticPoolName'))]"
             },
             "sku": {
                 "name": "[parameters('DBskuName')]",
