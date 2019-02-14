@@ -111,7 +111,7 @@
             "resources": [
                  {
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2014-04-01-preview",
+            "apiVersion": "2014-04-01",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
@@ -175,7 +175,7 @@
                 "readScale": "[parameters('readScaleOut')]",
                 "readReplicaCount": "[parameters('numberOfReplicas')]",
                 "requestedServiceObjectiveName": "ElasticPool",
-                "elasticPoolName": "[concat (parameters('serverName'), '/', parameters('elasticPoolName'))]"
+                "elasticPoolName": "[parameters('elasticPoolName')]"
             },
             "sku": {
                 "name": "[parameters('DBskuName')]",
