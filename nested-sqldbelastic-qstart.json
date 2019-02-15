@@ -65,7 +65,7 @@
                 "description": "The Elastic Pool database DTU max."
             }
         },
-        "databasesNames": {
+        "databaseNames": {
             "type": "array",
             "defaultValue": [
                 "db1",
@@ -116,7 +116,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "name": "[concat(parameters('serverName'), '/', parameters('databasesNames')[copyIndex()])]",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
             "location": "[variables('resourceGroupLocation')]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
@@ -130,7 +130,7 @@
             },
             "copy": {
                 "name": "addDatabasesInElasticPool",
-                "count": "[length(parameters('databasesNames'))]"
+                "count": "[length(parameters('databaseNames'))]"
             }
         },
         {
