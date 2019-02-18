@@ -165,7 +165,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames'), '-np'[copyIndex()])]",
             "location": "[variables('resourceGroupLocation')]",
             "condition": "[equals(parameters('elasticPool'), 'No')]",
             "apiVersion": "2014-04-01-preview",
