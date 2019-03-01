@@ -101,87 +101,40 @@
             "type": "string",
             "defaultValue": ""
         },
-        "databaseNames": {
-            "type": "array",
-            "defaultValue": [
-              "db1",
-              "db2"
-            ],
-            "metadata": {
-              "description": "The SQL Databases names."
-            }
-          },
-          "databaseCollation": {
+        "databaseName": {
             "type": "string",
-            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "defaultValue": "DBnameunique",
             "metadata": {
-              "description": "The SQL Database collation."
+                "description": "Name of the database(s) created."
             }
-          },
+        },
         "elasticPoolName": {
             "type": "string",
-            "defaultValue": "elasticPoolName",
-            "metadata": {
-                "description": "Name of the SQL Elastic Pool."
-            }
+            "defaultValue": "elasticPoolName"
         },
         "elasticPoolEdition": {
             "type": "string",
-            "defaultValue": "Standard",
-            "metadata": {
-                "description": "Edition of the Elastic Pool. Basic - low demanding workloads, Standard - typical workloads, Premium - I/O intensive workloads."
-            },
-            "allowedValues": [
-            	"Basic",
-                "Standard",
-                "Premium" 
-            ]
+            "defaultValue": "Standard"
         },
         "poolDtu": {
             "type": "int",
-            "defaultValue": 100,
-            "metadata": {
-                "description": "eDTU's of the Elastic Pool."
-            }
+            "defaultValue": 100
         },
         "databaseDtuMin": {
             "type": "int",
-            "defaultValue": 0,
-            "metadata": {
-                "description": "Minimum eDTU's per database."
-            }
+            "defaultValue": 0
                 },
-                
         "databaseDtuMax": {
             "type": "int",
-            "defaultValue": 100,
-            "metadata": {
-                "description": "Maximum eDTU's per database."
-            }
+            "defaultValue": 100
         },
         "tier": {
             "type": "string",
-            "defaultValue": "Standard",
-            "metadata": {
-                "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
-            },
-            "allowedValues": [
-            	"Basic",
-                "Standard",
-                "Premium" 
-            ]
+            "defaultValue": "Standard"
         },
         "dbSkuName": {
             "type": "string",
-            "defaultValue": "S0",
-            "metadata": {
-                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1)"
-            },
-            "allowedValues": [
-            	"Basic",
-                "S0",
-                "P1" 
-            ]
+            "defaultValue": "S1"
         },
         "maxSizeBytes": {
             "type": "int",
@@ -191,12 +144,13 @@
             "type": "string",
             "defaultValue": "testsqltest"
         },
+        "sampleName": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "zoneRedundant": {
             "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "Zone Redundancy. Default is 'True'."
-            }
+            "defaultValue": false
         },
         "dbLicenseType": {
             "type": "string",
@@ -212,17 +166,11 @@
         },
         "enableATP": {
             "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "Enable Advanced Threat Protection. Default is 'True'."
-            }
+            "defaultValue": false
         },
         "allowAzureIps": {
             "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Allow Azure IP's access. Default is 'True'."
-            }
+            "defaultValue": true
         }
 
         
@@ -246,7 +194,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('templateUri'), 'nested-azuresql.json')]",
+                    "uri": "[concat(variables('templateUri'), 'nested-sqldbelastic.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -257,11 +205,11 @@
                     "administratorLoginPassword": {
                         "value": "[parameters('administratorLoginPassword')]"
                     },
-                    "databaseCollation": {
-                        "value": "[parameters('databaseCollation')]"
+                    "collation": {
+                        "value": "[parameters('collation')]"
                     },
-                    "databaseNames": {
-                        "value": "[parameters('databaseNames')]"
+                    "databaseName": {
+                        "value": "[parameters('databaseName')]"
                     },
                     "elasticPool": {
                         "value": "[parameters('elasticPool')]"
@@ -293,7 +241,9 @@
                     "serverName": {
                         "value": "[parameters('serverName')]"
                     },
-
+                    "sampleName": {
+                        "value": "[parameters('sampleName')]"
+                    },
                     "zoneRedundant": {
                         "value": "[parameters('zoneRedundant')]"
                     },
