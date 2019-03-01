@@ -20,50 +20,29 @@
                 "description": "The SQL Server name."
             }
         },
-        "elasticPoolName": {
-            "type": "string",
-            "metadata": {
-                "description": "The Elastic Pool name."
-            }
-        },
-        "elasticPoolEdition": {
+        "tier": {
             "type": "string",
             "defaultValue": "Standard",
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium"
-            ],
             "metadata": {
-                "description": "The Elastic Pool edition."
-            }
-        },
-        "elasticPool": {
-            "type": "string",
-            "defaultValue": "Yes",
+                "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
+            },
             "allowedValues": [
-                "Yes",
-                "No"
+            	"Basic",
+                "Standard",
+                "Premium" 
             ]
         },
-        "poolDtu": {
-            "type": "int",
+        "dbSkuName": {
+            "type": "string",
+            "defaultValue": "S0",
             "metadata": {
-                "description": "The Elastic Pool DTU."
-            }
-        },
-        "databaseDtuMin": {
-            "type": "int",
-            "defaultValue": 0,
-            "metadata": {
-                "description": "The Elastic Pool database DTU min."
-            }
-        },
-        "databaseDtuMax": {
-            "type": "int",
-            "metadata": {
-                "description": "The Elastic Pool database DTU max."
-            }
+                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1)"
+            },
+            "allowedValues": [
+            	"Basic",
+                "S0",
+                "P1" 
+            ]
         },
         "databaseNames": {
             "type": "array",
@@ -108,6 +87,10 @@
             ],
             "properties": {
                 "collation": "[parameters('databaseCollation')]"
+            },
+            "sku": {
+                "name": "[parameters('DBskuName')]",
+                "tier": "[parameters('tier')]"
             }
         },
         {
