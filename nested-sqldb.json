@@ -99,38 +99,15 @@
             "type": "Microsoft.Sql/servers"
         },
         {
-            "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-            ],
-            "location": "[variables('resourceGroupLocation')]",
-            "name": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]",
-            "properties": {
-                "edition": "[parameters('elasticPoolEdition')]",
-                "dtu": "[parameters('poolDtu')]",
-                "databaseDtuMin": "[parameters('databaseDtuMin')]",
-                "databaseDtuMax": "[parameters('databaseDtuMax')]"
-            },
-            "type": "Microsoft.Sql/servers/elasticPools"
-        },
-        {
             "type": "Microsoft.Sql/servers/databases",
             "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
             "location": "[variables('resourceGroupLocation')]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
-                "[concat('Microsoft.Sql/servers/', parameters('serverName') ,'/elasticpools/', parameters('elasticPoolName'))]"
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
             "properties": {
-                "collation": "[parameters('databaseCollation')]",
-                "requestedServiceObjectiveName": "ElasticPool",
-                "elasticPoolName": "[parameters('elasticPoolName')]"
-            },
-            "copy": {
-                "name": "addDatabasesInElasticPool",
-                "count": "[length(parameters('databaseNames'))]"
+                "collation": "[parameters('databaseCollation')]"
             }
         },
         {
