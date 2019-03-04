@@ -85,12 +85,12 @@
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
-            "properties": {
-                "collation": "[parameters('databaseCollation')]"
-            },
             "sku": {
                 "name": "[parameters('dbSkuName')]",
                 "tier": "[parameters('tier')]"
+            },
+            "properties": {
+                "collation": "[parameters('databaseCollation')]"
             },
             "copy": {
                 "name": "addDatabases",
