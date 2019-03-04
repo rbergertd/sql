@@ -287,31 +287,9 @@
                     "dbSkuName": {
                         "value": "[parameters('dbSkuName')]"
                     },
-                    "maxSizeBytes": {
-                        "value": "[parameters('maxSizeBytes')]"
-                    },
                     "serverName": {
                         "value": "[parameters('serverName')]"
-                    },
-
-                    "zoneRedundant": {
-                        "value": "[parameters('zoneRedundant')]"
-                    },
-                    "dbLicenseType": {
-                        "value": "[parameters('dbLicenseType')]"
-                    },
-                    "readScaleOut": {
-                        "value": "[parameters('readScaleOut')]"
-                    },
-                    "numberOfReplicas": {
-                        "value": "[parameters('numberOfReplicas')]"
-                    },
-                    "enableATP": {
-                        "value": "[parameters('enableATP')]"
-                    },
-                    "allowAzureIps": {
-                        "value": "[parameters('allowAzureIps')]"
-                    }                  
+                    }                
                 }
             }
         },       
