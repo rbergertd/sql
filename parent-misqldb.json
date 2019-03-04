@@ -242,7 +242,7 @@
             "type": "Microsoft.Resources/deployments",
             "condition": "[equals(parameters('solutionType'), 'Azure_SQL')]",
             "apiVersion": "2018-05-01",
-            "name": "sqlDatabase",
+            "name": "azureSQL",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
