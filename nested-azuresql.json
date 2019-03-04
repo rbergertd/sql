@@ -1,0 +1,206 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "The SQL Server administrator login"
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The SQL Server administrator login password."
+            }
+        },
+        "serverName": {
+            "type": "string",
+            "metadata": {
+                "description": "The SQL Server name."
+            }
+        },
+        "elasticPoolName": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool name."
+            }
+        },
+        "elasticPoolEdition": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "The Elastic Pool edition."
+            }
+        },
+        "elasticPool": {
+            "type": "string",
+            "defaultValue": "Yes",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "poolDtu": {
+            "type": "int",
+            "metadata": {
+                "description": "The Elastic Pool DTU."
+            }
+        },
+        "databaseDtuMin": {
+            "type": "int",
+            "defaultValue": 0,
+            "metadata": {
+                "description": "The Elastic Pool database DTU min."
+            }
+        },
+        "databaseDtuMax": {
+            "type": "int",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "tier": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "metadata": {
+                "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
+            },
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ]
+        },
+        "dbSkuName": {
+            "type": "string",
+            "defaultValue": "S0",
+            "metadata": {
+                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1)"
+            },
+            "allowedValues": [
+                "Basic",
+                "S0",
+                "P1"
+            ]
+        },
+        "databaseNames": {
+            "type": "array",
+            "defaultValue": [
+                "db1",
+                "db2"
+            ],
+            "metadata": {
+                "description": "The SQL Databases names."
+            }
+        },
+        "databaseCollation": {
+            "type": "string",
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "metadata": {
+                "description": "The SQL Database collation."
+            }
+        }
+    },
+    "variables": {
+        "templateUri": "https://raw.githubusercontent.com/rbergertd/sql/master/"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('elasticPool'), 'Yes')]",
+            "apiVersion": "2018-05-01",
+            "name": "sqlElasticDatabase",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateUri'), 'nested-sqldbelastic.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "administratorLogin": {
+                        "value": "[parameters('administratorLogin')]"
+                    },
+                    "administratorLoginPassword": {
+                        "value": "[parameters('administratorLoginPassword')]"
+                    },
+                    "databaseCollation": {
+                        "value": "[parameters('databaseCollation')]"
+                    },
+                    "databaseNames": {
+                        "value": "[parameters('databaseNames')]"
+                    },
+                    "elasticPool": {
+                        "value": "[parameters('elasticPool')]"
+                    },
+                    "elasticPoolName": {
+                        "value": "[parameters('elasticPoolName')]"
+                    },
+                    "elasticPoolEdition": {
+                        "value": "[parameters('elasticPoolEdition')]"
+                    },
+                    "poolDtu": {
+                        "value": "[parameters('poolDtu')]"
+                    },
+                    "databaseDtuMin": {
+                        "value": "[parameters('databaseDtuMin')]"
+                    },
+                    "databaseDtuMax": {
+                        "value": "[parameters('databaseDtuMax')]"
+                    },
+                    "tier": {
+                        "value": "[parameters('tier')]"
+                    },
+                    "dbSkuName": {
+                        "value": "[parameters('dbSkuName')]"
+                    },
+                    "serverName": {
+                        "value": "[parameters('serverName')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[equals(parameters('elasticPool'), 'No')]",
+            "apiVersion": "2018-05-01",
+            "name": "sqlDatabase",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateUri'), 'nested-sqldb.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "administratorLogin": {
+                        "value": "[parameters('administratorLogin')]"
+                    },
+                    "administratorLoginPassword": {
+                        "value": "[parameters('administratorLoginPassword')]"
+                    },
+                    "databaseCollation": {
+                        "value": "[parameters('databaseCollation')]"
+                    },
+                    "databaseNames": {
+                        "value": "[parameters('databaseNames')]"
+                    },
+                    "tier": {
+                        "value": "[parameters('tier')]"
+                    },
+                    "dbSkuName": {
+                        "value": "[parameters('dbSkuName')]"
+                    },
+                    "serverName": {
+                        "value": "[parameters('serverName')]"
+                    }
+                    
+                }
+            }
+        }
+    ]
+}

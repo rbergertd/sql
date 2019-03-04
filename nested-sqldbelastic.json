@@ -155,7 +155,7 @@
                 "elasticPoolName": "[parameters('elasticPoolName')]"
             },
             "sku": {
-                "name": "[parameters('DBskuName')]",
+                "name": "[parameters('dbSkuName')]",
                 "tier": "[parameters('tier')]"
             },
             "copy": {
