@@ -89,7 +89,7 @@
                 "collation": "[parameters('databaseCollation')]"
             },
             "sku": {
-                "name": "[parameters('DBskuName')]",
+                "name": "[parameters('dbSkuName')]",
                 "tier": "[parameters('tier')]"
             },
             "copy": {
