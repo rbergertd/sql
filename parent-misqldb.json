@@ -183,47 +183,12 @@
                 "P1" 
             ]
         },
-        "maxSizeBytes": {
-            "type": "int",
-            "defaultValue": 268435456000
-        },
         "serverName": {
             "type": "string",
             "defaultValue": "testsqltest"
-        },
-        "zoneRedundant": {
-            "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "Zone Redundancy. Default is 'True'."
-            }
-        },
-        "dbLicenseType": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "readScaleOut": {
-            "type": "string",
-            "defaultValue": "Disabled"
-        },
-        "numberOfReplicas": {
-            "type": "int",
-            "defaultValue": 0
-        },
-        "enableATP": {
-            "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "Enable Advanced Threat Protection. Default is 'True'."
-            }
-        },
-        "allowAzureIps": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Allow Azure IP's access. Default is 'True'."
-            }
         }
+        
+
 
         
     },

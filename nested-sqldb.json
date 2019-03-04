@@ -91,6 +91,10 @@
             "sku": {
                 "name": "[parameters('DBskuName')]",
                 "tier": "[parameters('tier')]"
+            },
+            "copy": {
+                "name": "addDatabases",
+                "count": "[length(parameters('databaseNames'))]"
             }
         },
         {
