@@ -109,7 +109,8 @@
 
     },
     "variables": {
-        "resourceGroupLocation": "[resourceGroup().location]"
+        "resourceGroupLocation": "[resourceGroup().location]",
+        "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools/',parameters('serverName'), parameters('elasticPoolName'))]"
     },
     "resources": [
         {
@@ -155,8 +156,7 @@
             },
             "properties": {
                 "collation": "[parameters('databaseCollation')]",
-                "requestedServiceObjectiveName": "ElasticPool",
-                "elasticPoolName": "[parameters('elasticPoolName')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
             },
             "copy": {
                 "name": "addDatabasesInElasticPool",
