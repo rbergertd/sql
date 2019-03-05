@@ -90,7 +90,7 @@
             ]
         },
         "databaseNames": {
-            "type": "string",
+            "type": "array",
             "defaultValue": [
                 "db1",
                 "db2"
