@@ -84,7 +84,8 @@
                 "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1)"
             },
             "allowedValues": [
-            	"Basic",
+                "Basic",
+                "ElasticPool",
                 "S0",
                 "P1" 
             ]
