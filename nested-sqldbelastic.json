@@ -90,7 +90,7 @@
             ]
         },
         "databaseNames": {
-            "type": "array",
+            "type": "string",
             "defaultValue": [
                 "db1",
                 "db2"
@@ -141,7 +141,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames'), copyIndex(1))]",
             "location": "[variables('resourceGroupLocation')]",
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
             "apiVersion": "2014-04-01-preview",

@@ -79,7 +79,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames'),copyIndex(1))]",
             "location": "[variables('resourceGroupLocation')]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
