@@ -184,12 +184,16 @@
                 "P1" 
             ]
         },
-        "alertEmailAddress": {
-            "type": "string",
+        "alertEmailAddresses": {
+            "type": "array",
+            "defaultValue": [
+              "user1@example.com",
+              "user2@example.com"
+            ],
             "metadata": {
-                "description": "The e-mail address to be used for Security and Auditing alerts."
+              "description": "Email addresses for receiving alerts"
             }
-        },
+          },
         "serverName": {
             "type": "string",
             "defaultValue": "testsqltest"
@@ -262,8 +266,8 @@
                     "serverName": {
                         "value": "[parameters('serverName')]"
                     },
-                    "alertEmailAddress": {
-                        "value": "[parameters('alertEmailAddress')]"
+                    "alertEmailAddresses": {
+                        "value": "[parameters('alertEmailAddresses')]"
                     }              
                 }
             }

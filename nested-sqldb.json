@@ -61,12 +61,16 @@
                 "description": "The SQL Database collation."
             }
         },
-        "alertEmailAddress": {
-            "type": "string",
+        "alertEmailAddresses": {
+            "type": "array",
+            "defaultValue": [
+              "user1@example.com",
+              "user2@example.com"
+            ],
             "metadata": {
-                "description": "The e-mail address to be used for Security and Auditing alerts."
+              "description": "Email addresses for receiving alerts"
             }
-        }
+          }
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]"
@@ -92,7 +96,7 @@
                     ],
                     "properties": {
                         "state": "Enabled",
-                        "emailAddresses": "[parameters('alertEmailAddress')]",
+                        "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
                     }
                 }
