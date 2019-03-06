@@ -106,6 +106,12 @@
             "metadata": {
                 "description": "The SQL Database collation."
             }
+        },
+        "alertEmailAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "The e-mail address to be used for Security and Auditing alerts."
+            }
         }
     },
     "variables": {
@@ -162,7 +168,10 @@
                     },
                     "serverName": {
                         "value": "[parameters('serverName')]"
-                    }
+                    },
+                    "alertEmailAddress": {
+                        "value": "[parameters('alertEmailAddress')]"
+                    } 
                 }
             }
         },
@@ -195,6 +204,9 @@
                     },
                     "dbSkuName": {
                         "value": "[parameters('dbSkuName')]"
+                    },
+                    "alertEmailAddress": {
+                        "value": "[parameters('alertEmailAddress')]"
                     },
                     "serverName": {
                         "value": "[parameters('serverName')]"

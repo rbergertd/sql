@@ -106,6 +106,12 @@
             "metadata": {
                 "description": "The SQL Database collation."
             }
+        },
+        "alertEmailAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "The e-mail address to be used for Security and Auditing alerts."
+            }
         }
     },
     "variables": {
@@ -122,7 +128,22 @@
                 "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
                 "version": "12.0"
             },
-            "type": "Microsoft.Sql/servers"
+            "type": "Microsoft.Sql/servers",
+            "resources": [
+                {
+                    "type": "securityAlertPolicies",
+                    "name": "DefaultSecurityAlert",
+                    "apiVersion": "2017-03-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "emailAddresses": "[parameters('alertEmailAddress')]",
+                        "emailAccountAdmins": true
+                    }
+                }
+            ]
         },
         {
             "type": "Microsoft.Sql/servers/advisors",

@@ -184,6 +184,12 @@
                 "P1" 
             ]
         },
+        "alertEmailAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "The e-mail address to be used for Security and Auditing alerts."
+            }
+        },
         "serverName": {
             "type": "string",
             "defaultValue": "testsqltest"
@@ -255,7 +261,10 @@
                     },
                     "serverName": {
                         "value": "[parameters('serverName')]"
-                    }                
+                    },
+                    "alertEmailAddress": {
+                        "value": "[parameters('alertEmailAddress')]"
+                    }              
                 }
             }
         },       
