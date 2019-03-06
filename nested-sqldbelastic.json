@@ -72,9 +72,9 @@
                 "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
             },
             "allowedValues": [
-            	"Basic",
+                "Basic",
                 "Standard",
-                "Premium" 
+                "Premium"
             ]
         },
         "dbSkuName": {
@@ -87,7 +87,7 @@
                 "Basic",
                 "ElasticPool",
                 "S0",
-                "P1" 
+                "P1"
             ]
         },
         "databaseNames": {
@@ -107,7 +107,6 @@
                 "description": "The SQL Database collation."
             }
         }
-
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
@@ -131,60 +130,60 @@
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-              "autoExecuteValue": "Enabled"
+                "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
-          },
-          {
+        },
+        {
             "type": "Microsoft.Sql/servers/advisors",
             "name": "[concat(parameters('servername'), '/', 'CreateIndex')]",
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-              "autoExecuteValue": "Enabled"
+                "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
-          },
-          {
+        },
+        {
             "type": "Microsoft.Sql/servers/advisors",
             "name": "[concat(parameters('servername'), '/', 'DropIndex')]",
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-              "autoExecuteValue": "Enabled"
+                "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
-          },
-          {
+        },
+        {
             "type": "Microsoft.Sql/servers/advisors",
             "name": "[concat(parameters('servername'), '/', 'DbParameterization')]",
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-              "autoExecuteValue": "Disabled"
+                "autoExecuteValue": "Disabled"
             },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
-          },
-          {
+        },
+        {
             "type": "Microsoft.Sql/servers/advisors",
             "name": "[concat(parameters('servername'), '/', 'DefragmentIndex')]",
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-              "autoExecuteValue": "Disabled"
+                "autoExecuteValue": "Disabled"
             },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
-          }
+        },
         {
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
             "apiVersion": "2014-04-01",
