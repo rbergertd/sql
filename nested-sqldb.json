@@ -78,6 +78,66 @@
             "type": "Microsoft.Sql/servers"
         },
         {
+            "type": "Microsoft.Sql/servers/advisors",
+            "name": "[concat(parameters('servername'), '/', 'ForceLastGoodPlan')]",
+            "apiVersion": "2014-04-01",
+            "scale": null,
+            "properties": {
+              "autoExecuteValue": "Enabled"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+            ]
+          },
+          {
+            "type": "Microsoft.Sql/servers/advisors",
+            "name": "[concat(parameters('servername'), '/', 'CreateIndex')]",
+            "apiVersion": "2014-04-01",
+            "scale": null,
+            "properties": {
+              "autoExecuteValue": "Enabled"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+            ]
+          },
+          {
+            "type": "Microsoft.Sql/servers/advisors",
+            "name": "[concat(parameters('servername'), '/', 'DropIndex')]",
+            "apiVersion": "2014-04-01",
+            "scale": null,
+            "properties": {
+              "autoExecuteValue": "Enabled"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+            ]
+          },
+          {
+            "type": "Microsoft.Sql/servers/advisors",
+            "name": "[concat(parameters('servername'), '/', 'DbParameterization')]",
+            "apiVersion": "2014-04-01",
+            "scale": null,
+            "properties": {
+              "autoExecuteValue": "Disabled"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+            ]
+          },
+          {
+            "type": "Microsoft.Sql/servers/advisors",
+            "name": "[concat(parameters('servername'), '/', 'DefragmentIndex')]",
+            "apiVersion": "2014-04-01",
+            "scale": null,
+            "properties": {
+              "autoExecuteValue": "Disabled"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+            ]
+          }
+        {
             "type": "Microsoft.Sql/servers/databases",
             "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
             "location": "[variables('resourceGroupLocation')]",
