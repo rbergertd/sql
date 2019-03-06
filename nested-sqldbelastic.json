@@ -148,7 +148,7 @@
             "resources": [
                 {
                     "type": "securityAlertPolicies",
-                    "name": "DefaultSecurityAlert",
+                    "name": "SQLSecurityAlerts",
                     "apiVersion": "2017-03-01-preview",
                     "dependsOn": [
                         "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
@@ -160,7 +160,7 @@
                     }
                 },
                 {
-                    "name": "DefaultAtpTemplate",
+                    "name": "SQLVulnerabilityAssessments",
                     "type": "vulnerabilityAssessments",
                     "apiVersion": "2018-06-01-preview",
                     "dependsOn": [
@@ -175,6 +175,23 @@
                             "emailSubscriptionAdmins": true,
                             "emails": "[parameters('alertEmailAddresses')]"
                         }
+                    }
+                },
+                {
+                    "apiVersion": "2017-03-01-preview",
+                    "type": "auditingSettings",
+                    "name": "SQLAuditingSettings",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "storageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').primaryEndpoints.blob]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').keys[0].value]",
+                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+                        "auditActionsAndGroups": null,
+                        "isStorageSecondaryKeyInUse": false
                     }
                 }
             ]
