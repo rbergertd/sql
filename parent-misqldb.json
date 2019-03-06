@@ -175,7 +175,7 @@
             "type": "string",
             "defaultValue": "S0",
             "metadata": {
-                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1)"
+                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1). If selecting 'Yes' to ElasticPool, you MUST select ElasticPool as the SKU Name."
             },
             "allowedValues": [
                 "Basic",
