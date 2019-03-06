@@ -110,19 +110,31 @@
         "alertEmailAddresses": {
             "type": "array",
             "defaultValue": [
-              "user1@example.com",
-              "user2@example.com"
+                "user1@example.com",
+                "user2@example.com"
             ],
             "metadata": {
-              "description": "Email addresses for receiving alerts"
+                "description": "Email addresses for receiving alerts"
             }
-          }
+        }
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
+        "sqlAtpStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]",
         "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools/',parameters('serverName'), parameters('elasticPoolName'))]"
     },
     "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('sqlAtpStorage')]",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "Storage",
+            "properties": {}
+        },
         {
             "apiVersion": "2017-10-01-preview",
             "location": "[variables('resourceGroupLocation')]",
@@ -145,6 +157,24 @@
                         "state": "Enabled",
                         "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
+                    }
+                },
+                {
+                    "name": "DefaultAtpTemplate",
+                    "type": "vulnerabilityAssessments",
+                    "apiVersion": "2018-06-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
+                    ],
+                    "properties": {
+                        "storageContainerPath": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage'))).primaryEndpoints.blob, 'vulnerability-assessment')]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-02-01').keys[0].value]",
+                        "recurringScans": {
+                            "isEnabled": true,
+                            "emailSubscriptionAdmins": true,
+                            "emails": "[parameters('alertEmailAddresses')]"
+                        }
                     }
                 }
             ]
