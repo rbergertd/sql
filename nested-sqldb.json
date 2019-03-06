@@ -107,30 +107,6 @@
             "apiVersion": "2014-04-01",
             "scale": null,
             "properties": {
-                "autoExecuteValue": "Enabled"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.Sql/servers/advisors",
-            "name": "[concat(parameters('servername'), '/', 'DbParameterization')]",
-            "apiVersion": "2014-04-01",
-            "scale": null,
-            "properties": {
-                "autoExecuteValue": "Disabled"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.Sql/servers/advisors",
-            "name": "[concat(parameters('servername'), '/', 'DefragmentIndex')]",
-            "apiVersion": "2014-04-01",
-            "scale": null,
-            "properties": {
                 "autoExecuteValue": "Disabled"
             },
             "dependsOn": [
