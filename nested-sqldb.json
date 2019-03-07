@@ -45,10 +45,18 @@
                 "ElasticPool",
                 "S0",
                 "P1",
-                "GP_Gen4",
-                "GP_Gen5",
-                "BC_Gen4",
-                "BC_Gen5"
+                "GP_Gen4_1",
+                "GP_Gen4_2",
+                "GP_Gen4_4",
+                "GP_Gen5_1",
+                "GP_Gen5_2",
+                "GP_Gen5_4",
+                "BC_Gen4_1",
+                "BC_Gen4_2",
+                "BC_Gen4_4",
+                "BC_Gen5_1",
+                "BC_Gen5_2",
+                "BC_Gen5_4"
             ]
         },
         "databaseNames": {
