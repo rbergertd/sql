@@ -32,7 +32,9 @@
             "allowedValues": [
                 "Basic",
                 "Standard",
-                "Premium"
+                "Premium",
+                "GeneralPurpose",
+                "BusinessCritical" 
             ],
             "metadata": {
                 "description": "The Elastic Pool edition."

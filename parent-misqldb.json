@@ -134,7 +134,9 @@
             "allowedValues": [
             	"Basic",
                 "Standard",
-                "Premium" 
+                "Premium",
+                "GeneralPurpose",
+                "BusinessCritical" 
             ]
         },
         "poolDtu": {
