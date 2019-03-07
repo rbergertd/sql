@@ -168,7 +168,9 @@
             "allowedValues": [
             	"Basic",
                 "Standard",
-                "Premium" 
+                "Premium" ,
+                "GeneralPurpose",
+                "BusinessCritical"
             ]
         },
         "dbSkuName": {
@@ -181,7 +183,11 @@
                 "Basic",
                 "ElasticPool",
                 "S0",
-                "P1" 
+                "P1",
+                "GP_Gen4",
+                "GP_Gen5",
+                "BC_Gen4",
+                "BC_Gen5"
             ]
         },
         "alertEmailAddresses": {
