@@ -130,7 +130,21 @@
             "defaultValue": "100",
             "metadata": {
                 "description": "The Elastic Pool Limit"
-            }
+            },
+            "allowedValues": [
+            	"100",
+                "200",
+                "300" ,
+                "400",
+                "500",
+                "600",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+            ]
         },
         "poolSize": {
             "type": "int",
@@ -143,14 +157,14 @@
             "type": "string",
             "defaultValue": "0",
             "metadata": {
-                "description": "The per database performance minimum."
+                "description": "The per database performance minimum. DTU or vCore."
             }
         },
         "perDatabasePerformanceMax": {
             "type": "string",
             "defaultValue": "100",
             "metadata": {
-                "description": "The per database performance minimum."
+                "description": "The per database performance minimum. DTU or vCore."
             }
         },
         "epTier": {
@@ -180,19 +194,7 @@
                 "GP_Gen4",
                 "GP_Gen5",
                 "BC_Gen4",
-                "BC_Gen5",
-                "GP_Gen4_1",
-                "GP_Gen4_2",
-                "GP_Gen4_4",
-                "GP_Gen5_1",
-                "GP_Gen5_2",
-                "GP_Gen5_4",
-                "BC_Gen4_1",
-                "BC_Gen4_2",
-                "BC_Gen4_4",
-                "BC_Gen5_1",
-                "BC_Gen5_2",
-                "BC_Gen5_4"
+                "BC_Gen5"
             ]
         },
         "tier": {
