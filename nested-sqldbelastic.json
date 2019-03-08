@@ -76,45 +76,6 @@
                 "description": "The Elastic Pool tier."
             }
         },
-        "tier": {
-            "type": "string",
-            "defaultValue": "Standard",
-            "metadata": {
-                "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
-            },
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium",
-                "GeneralPurpose",
-                "BusinessCritical"
-            ]
-        },
-        "dbSkuName": {
-            "type": "string",
-            "defaultValue": "S0",
-            "metadata": {
-                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1). If selecting 'Yes' to ElasticPool, you MUST select ElasticPool as the SKU Name."
-            },
-            "allowedValues": [
-                "Basic",
-                "ElasticPool",
-                "S0",
-                "P1",
-                "GP_Gen4_1",
-                "GP_Gen4_2",
-                "GP_Gen4_4",
-                "GP_Gen5_1",
-                "GP_Gen5_2",
-                "GP_Gen5_4",
-                "BC_Gen4_1",
-                "BC_Gen4_2",
-                "BC_Gen4_4",
-                "BC_Gen5_1",
-                "BC_Gen5_2",
-                "BC_Gen5_4"
-            ]
-        },
         "databaseNames": {
             "type": "array",
             "defaultValue": [
