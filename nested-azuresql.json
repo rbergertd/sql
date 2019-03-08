@@ -195,12 +195,6 @@
                     "epSkuName": {
                         "value": "[parameters('epSkuName')]"
                     },
-                    "tier": {
-                        "value": "[parameters('tier')]"
-                    },
-                    "dbSkuName": {
-                        "value": "[parameters('dbSkuName')]"
-                    },
                     "serverName": {
                         "value": "[parameters('serverName')]"
                     },
