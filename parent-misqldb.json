@@ -163,24 +163,28 @@
         },
         "poolLimit": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
                 "description": "The Elastic Pool database DTU max."
             }
         },
         "poolSize": {
             "type": "int",
+            "defaultValue": "",
             "metadata": {
                 "description": "The Elastic Pool database DTU max."
             }
         },
         "perDatabasePerformanceMin": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
                 "description": "The Elastic Pool database DTU max."
             }
         },
         "perDatabasePerformanceMax": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
                 "description": "The Elastic Pool database DTU max."
             }
