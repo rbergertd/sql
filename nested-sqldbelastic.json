@@ -289,10 +289,6 @@
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
                 "[concat('Microsoft.Sql/servers/', parameters('serverName') ,'/elasticpools/', parameters('elasticPoolName'))]"
             ],
-            "sku": {
-                "name": "[parameters('dbSkuName')]",
-                "tier": "[parameters('tier')]"
-            },
             "properties": {
                 "collation": "[parameters('databaseCollation')]",
                 "elasticPoolId": "[variables('elasticPoolId')]"
