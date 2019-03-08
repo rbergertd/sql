@@ -125,42 +125,6 @@
                 "description": "Name of the SQL Elastic Pool."
             }
         },
-        "elasticPoolEdition": {
-            "type": "string",
-            "defaultValue": "Standard",
-            "metadata": {
-                "description": "Edition of the Elastic Pool. Basic - low demanding workloads, Standard - typical workloads, Premium - I/O intensive workloads."
-            },
-            "allowedValues": [
-            	"Basic",
-                "Standard",
-                "Premium",
-                "GeneralPurpose",
-                "BusinessCritical" 
-            ]
-        },
-        "poolDtu": {
-            "type": "int",
-            "defaultValue": 100,
-            "metadata": {
-                "description": "eDTU's of the Elastic Pool."
-            }
-        },
-        "databaseDtuMin": {
-            "type": "int",
-            "defaultValue": 0,
-            "metadata": {
-                "description": "Minimum eDTU's per database."
-            }
-                },
-                
-        "databaseDtuMax": {
-            "type": "int",
-            "defaultValue": 100,
-            "metadata": {
-                "description": "Maximum eDTU's per database."
-            }
-        },
         "poolLimit": {
             "type": "string",
             "defaultValue": "",
@@ -187,6 +151,20 @@
             "defaultValue": "",
             "metadata": {
                 "description": "The per database performance minimum."
+            }
+        },
+        "epTier": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
+            }
+        },
+        "epSkuName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
             }
         },
         "tier": {
@@ -285,18 +263,6 @@
                     "elasticPoolName": {
                         "value": "[parameters('elasticPoolName')]"
                     },
-                    "elasticPoolEdition": {
-                        "value": "[parameters('elasticPoolEdition')]"
-                    },
-                    "poolDtu": {
-                        "value": "[parameters('poolDtu')]"
-                    },
-                    "databaseDtuMin": {
-                        "value": "[parameters('databaseDtuMin')]"
-                            },
-                    "databaseDtuMax": {
-                        "value": "[parameters('databaseDtuMax')]"
-                    },
                     "poolLimit": {
                         "value": "[parameters('poolLimit')]"
                     },
@@ -308,6 +274,12 @@
                     },
                     "perDatabasePerformanceMax": {
                         "value": "[parameters('perDatabasePerformanceMax')]"
+                    },
+                    "epTier": {
+                        "value": "[parameters('epTier')]"
+                    },
+                    "epSkuName": {
+                        "value": "[parameters('epSkuName')]"
                     },
                     "tier": {
                         "value": "[parameters('tier')]"

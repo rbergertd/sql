@@ -26,20 +26,6 @@
                 "description": "The Elastic Pool name."
             }
         },
-        "elasticPoolEdition": {
-            "type": "string",
-            "defaultValue": "Standard",
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium",
-                "GeneralPurpose",
-                "BusinessCritical" 
-            ],
-            "metadata": {
-                "description": "The Elastic Pool edition."
-            }
-        },
         "elasticPool": {
             "type": "string",
             "defaultValue": "Yes",
@@ -47,25 +33,6 @@
                 "Yes",
                 "No"
             ]
-        },
-        "poolDtu": {
-            "type": "int",
-            "metadata": {
-                "description": "The Elastic Pool DTU."
-            }
-        },
-        "databaseDtuMin": {
-            "type": "int",
-            "defaultValue": 0,
-            "metadata": {
-                "description": "The Elastic Pool database DTU min."
-            }
-        },
-        "databaseDtuMax": {
-            "type": "int",
-            "metadata": {
-                "description": "The Elastic Pool database DTU max."
-            }
         },
         "poolLimit": {
             "type": "string",
@@ -93,6 +60,20 @@
             "defaultValue": "",
             "metadata": {
                 "description": "The per database performance minimum."
+            }
+        },
+        "epTier": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
+            }
+        },
+        "epSkuName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
             }
         },
         "tier": {
@@ -279,17 +260,23 @@
         {
             "type": "Microsoft.Sql/servers/elasticPools",
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2014-04-01",
+            "apiVersion": "2017-10-01-preview",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
             "location": "[variables('resourceGroupLocation')]",
             "name": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]",
+            "sku": {
+                "name": "[parameters('epSkuName')]",
+                "tier": "[parameters('epTier')]",
+                "capacity": "[parameters('poolLimit')]"
+            },
             "properties": {
-                "edition": "[parameters('elasticPoolEdition')]",
-                "dtu": "[parameters('poolDtu')]",
-                "databaseDtuMin": "[parameters('databaseDtuMin')]",
-                "databaseDtuMax": "[parameters('databaseDtuMax')]"
+                "perDatabaseSettings": {
+                    "minCapacity": "[parameters('perDatabasePerformanceMin')]",
+                    "maxCapacity": "[parameters('perDatabasePerformanceMax')]"
+                },
+                "storageMB": "[parameters('poolSize')]"
             }
         },
         {

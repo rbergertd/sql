@@ -26,20 +26,6 @@
                 "description": "The Elastic Pool name."
             }
         },
-        "elasticPoolEdition": {
-            "type": "string",
-            "defaultValue": "Standard",
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium",
-                "GeneralPurpose",
-                "BusinessCritical" 
-            ],
-            "metadata": {
-                "description": "The Elastic Pool edition."
-            }
-        },
         "elasticPool": {
             "type": "string",
             "defaultValue": "Yes",
@@ -47,25 +33,6 @@
                 "Yes",
                 "No"
             ]
-        },
-        "poolDtu": {
-            "type": "int",
-            "metadata": {
-                "description": "The Elastic Pool DTU."
-            }
-        },
-        "databaseDtuMin": {
-            "type": "int",
-            "defaultValue": 0,
-            "metadata": {
-                "description": "The Elastic Pool database DTU min."
-            }
-        },
-        "databaseDtuMax": {
-            "type": "int",
-            "metadata": {
-                "description": "The Elastic Pool database DTU max."
-            }
         },
         "poolLimit": {
             "type": "string",
@@ -93,6 +60,20 @@
             "defaultValue": "",
             "metadata": {
                 "description": "The per database performance minimum."
+            }
+        },
+        "epTier": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
+            }
+        },
+        "epSkuName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
             }
         },
         "tier": {
@@ -196,18 +177,6 @@
                     "elasticPoolName": {
                         "value": "[parameters('elasticPoolName')]"
                     },
-                    "elasticPoolEdition": {
-                        "value": "[parameters('elasticPoolEdition')]"
-                    },
-                    "poolDtu": {
-                        "value": "[parameters('poolDtu')]"
-                    },
-                    "databaseDtuMin": {
-                        "value": "[parameters('databaseDtuMin')]"
-                    },
-                    "databaseDtuMax": {
-                        "value": "[parameters('databaseDtuMax')]"
-                    },
                     "poolLimit": {
                         "value": "[parameters('poolLimit')]"
                     },
@@ -219,6 +188,12 @@
                     },
                     "perDatabasePerformanceMax": {
                         "value": "[parameters('perDatabasePerformanceMax')]"
+                    },
+                    "epTier": {
+                        "value": "[parameters('epTier')]"
+                    },
+                    "epSkuName": {
+                        "value": "[parameters('epSkuName')]"
                     },
                     "tier": {
                         "value": "[parameters('tier')]"
