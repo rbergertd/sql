@@ -71,28 +71,28 @@
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "The Elastic Pool database DTU max."
+                "description": "The Elastic Pool vCore Limit"
             }
         },
         "poolSize": {
             "type": "int",
             "defaultValue": "",
             "metadata": {
-                "description": "The Elastic Pool database DTU max."
+                "description": "The Elastic Pool total storage (in MB)."
             }
         },
         "perDatabasePerformanceMin": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "The Elastic Pool database DTU max."
+                "description": "The per database performance minimum."
             }
         },
         "perDatabasePerformanceMax": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "The Elastic Pool database DTU max."
+                "description": "The per database performance minimum."
             }
         },
         "tier": {
