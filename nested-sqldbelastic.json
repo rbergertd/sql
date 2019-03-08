@@ -279,7 +279,7 @@
         {
             "type": "Microsoft.Sql/servers/elasticPools",
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2017-10-01-preview",
+            "apiVersion": "2014-04-01",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
