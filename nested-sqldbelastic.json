@@ -67,6 +67,30 @@
                 "description": "The Elastic Pool database DTU max."
             }
         },
+        "poolLimit": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "poolSize": {
+            "type": "int",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "perDatabasePerformanceMin": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "perDatabasePerformanceMax": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
         "tier": {
             "type": "string",
             "defaultValue": "Standard",
@@ -249,8 +273,9 @@
             ]
         },
         {
+            "type": "Microsoft.Sql/servers/elasticPools",
             "condition": "[equals(parameters('elasticPool'), 'Yes')]",
-            "apiVersion": "2014-04-01",
+            "apiVersion": "2017-10-01-preview",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
@@ -261,8 +286,7 @@
                 "dtu": "[parameters('poolDtu')]",
                 "databaseDtuMin": "[parameters('databaseDtuMin')]",
                 "databaseDtuMax": "[parameters('databaseDtuMax')]"
-            },
-            "type": "Microsoft.Sql/servers/elasticPools"
+            }
         },
         {
             "type": "Microsoft.Sql/servers/databases",

@@ -161,6 +161,30 @@
                 "description": "Maximum eDTU's per database."
             }
         },
+        "poolLimit": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "poolSize": {
+            "type": "int",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "perDatabasePerformanceMin": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
+        "perDatabasePerformanceMax": {
+            "type": "string",
+            "metadata": {
+                "description": "The Elastic Pool database DTU max."
+            }
+        },
         "tier": {
             "type": "string",
             "defaultValue": "Standard",
