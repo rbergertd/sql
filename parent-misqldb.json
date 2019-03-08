@@ -127,9 +127,9 @@
         },
         "poolLimit": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "100",
             "metadata": {
-                "description": "The Elastic Pool vCore Limit"
+                "description": "The Elastic Pool Limit"
             }
         },
         "poolSize": {
@@ -141,31 +141,59 @@
         },
         "perDatabasePerformanceMin": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "0",
             "metadata": {
                 "description": "The per database performance minimum."
             }
         },
         "perDatabasePerformanceMax": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "100",
             "metadata": {
                 "description": "The per database performance minimum."
             }
         },
         "epTier": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "Standard",
             "metadata": {
                 "description": "The Elastic Pool tier."
-            }
+            },
+            "allowedValues": [
+            	"Basic",
+                "Standard",
+                "Premium" ,
+                "GeneralPurpose",
+                "BusinessCritical"
+            ]
         },
         "epSkuName": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "StandardPool",
             "metadata": {
                 "description": "The Elastic Pool tier."
-            }
+            },
+            "allowedValues": [
+            	"BasicPool",
+                "StandardPool",
+                "PremiumPool" ,
+                "GP_Gen4",
+                "GP_Gen5",
+                "BC_Gen4",
+                "BC_Gen5",
+                "GP_Gen4_1",
+                "GP_Gen4_2",
+                "GP_Gen4_4",
+                "GP_Gen5_1",
+                "GP_Gen5_2",
+                "GP_Gen5_4",
+                "BC_Gen4_1",
+                "BC_Gen4_2",
+                "BC_Gen4_4",
+                "BC_Gen5_1",
+                "BC_Gen5_2",
+                "BC_Gen5_4"
+            ]
         },
         "tier": {
             "type": "string",
