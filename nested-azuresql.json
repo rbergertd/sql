@@ -76,7 +76,7 @@
         },
         "poolSize": {
             "type": "int",
-            "defaultValue": "",
+            "defaultValue": 107374182400,
             "metadata": {
                 "description": "The Elastic Pool total storage (in MB)."
             }

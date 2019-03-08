@@ -163,7 +163,7 @@
         },
         "poolLimit": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": 107374182400,
             "metadata": {
                 "description": "The Elastic Pool vCore Limit"
             }
@@ -241,11 +241,7 @@
         "serverName": {
             "type": "string",
             "defaultValue": "testsqltest"
-        }
-        
-
-
-        
+        }    
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
