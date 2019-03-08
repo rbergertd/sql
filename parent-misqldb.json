@@ -163,14 +163,14 @@
         },
         "poolLimit": {
             "type": "string",
-            "defaultValue": 107374182400,
+            "defaultValue": "",
             "metadata": {
                 "description": "The Elastic Pool vCore Limit"
             }
         },
         "poolSize": {
             "type": "int",
-            "defaultValue": "",
+            "defaultValue": 107374182400,
             "metadata": {
                 "description": "The Elastic Pool total storage (in MB)."
             }
