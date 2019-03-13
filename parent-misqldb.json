@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
         "solutionType": {
-        	"type": "string",
-        	"defaultValue": "Azure_SQL",
-       		"allowedValues": [
-            	"Azure_SQL",
-           	    "Managed_Instance"
-        ]
+            "type": "string",
+            "defaultValue": "Azure_SQL",
+            "allowedValues": [
+                "Azure_SQL",
+                "Managed_Instance"
+            ]
         },
         "elasticPool": {
             "type": "string",
@@ -16,7 +16,7 @@
             "allowedValues": [
                 "Yes",
                 "No"
-        ]
+            ]
         },
         "administratorLogin": {
             "type": "string",
@@ -51,10 +51,10 @@
                 "description": "GP: General Purpose, BC: Business Critical"
             },
             "allowedValues": [
-            	"GP_Gen4",
+                "GP_Gen4",
                 "GP_Gen5",
                 "BC_Gen4",
-                "BC_Gen5"   
+                "BC_Gen5"
             ]
         },
         "skuEdition": {
@@ -64,8 +64,8 @@
                 "description": "SKU Edition. Business Critical is for higher I/O requirement databases, where as General Purpose is for databases with standard I/O requirements."
             },
             "allowedValues": [
-            	"GeneralPurpose",
-           	    "BusinessCritical"
+                "GeneralPurpose",
+                "BusinessCritical"
             ]
         },
         "storageSizeInGB": {
@@ -93,8 +93,8 @@
                 "description": "Hardware family of the managed instance. Gen4 or Gen5."
             },
             "allowedValues": [
-            	"Gen4",
-           	    "Gen5"
+                "Gen4",
+                "Gen5"
             ]
         },
         "dnsZonePartner": {
@@ -104,20 +104,20 @@
         "databaseNames": {
             "type": "array",
             "defaultValue": [
-              "db1",
-              "db2"
+                "db1",
+                "db2"
             ],
             "metadata": {
-              "description": "The SQL Databases names."
+                "description": "The SQL Databases names."
             }
-          },
-          "databaseCollation": {
+        },
+        "databaseCollation": {
             "type": "string",
             "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
             "metadata": {
-              "description": "The SQL Database collation."
+                "description": "The SQL Database collation."
             }
-          },
+        },
         "elasticPoolName": {
             "type": "string",
             "defaultValue": "elasticPoolName",
@@ -132,9 +132,9 @@
                 "description": "The Elastic Pool Limit"
             },
             "allowedValues": [
-            	"100",
+                "100",
                 "200",
-                "300" ,
+                "300",
                 "400",
                 "500",
                 "600",
@@ -174,9 +174,9 @@
                 "description": "The Elastic Pool tier."
             },
             "allowedValues": [
-            	"Basic",
+                "Basic",
                 "Standard",
-                "Premium" ,
+                "Premium",
                 "GeneralPurpose",
                 "BusinessCritical"
             ]
@@ -188,9 +188,9 @@
                 "description": "The Elastic Pool tier."
             },
             "allowedValues": [
-            	"BasicPool",
+                "BasicPool",
                 "StandardPool",
-                "PremiumPool" ,
+                "PremiumPool",
                 "GP_Gen4",
                 "GP_Gen5",
                 "BC_Gen4",
@@ -204,9 +204,9 @@
                 "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
             },
             "allowedValues": [
-            	"Basic",
+                "Basic",
                 "Standard",
-                "Premium" ,
+                "Premium",
                 "GeneralPurpose",
                 "BusinessCritical"
             ]
@@ -239,17 +239,17 @@
         "alertEmailAddresses": {
             "type": "array",
             "defaultValue": [
-              "user1@example.com",
-              "user2@example.com"
+                "user1@example.com",
+                "user2@example.com"
             ],
             "metadata": {
-              "description": "Email addresses for receiving alerts"
+                "description": "Email addresses for receiving alerts"
             }
-          },
+        },
         "serverName": {
             "type": "string",
             "defaultValue": "testsqltest"
-        }    
+        }
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
@@ -274,7 +274,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                  
                     "administratorLogin": {
                         "value": "[parameters('administratorLogin')]"
                     },
@@ -322,10 +321,10 @@
                     },
                     "alertEmailAddresses": {
                         "value": "[parameters('alertEmailAddresses')]"
-                    }              
+                    }
                 }
             }
-        },       
+        },
         {
             "apiVersion": "2017-10-01",
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -755,6 +754,5 @@
                 "collation": "[parameters('collation')]"
             }
         }
-        
     ]
 }
