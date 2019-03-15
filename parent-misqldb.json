@@ -18,6 +18,10 @@
                 "No"
             ]
         },
+        "serverName": {
+            "type": "string",
+            "defaultValue": "AzureSQLServerName"
+        },
         "administratorLogin": {
             "type": "string",
             "metadata": {
@@ -245,11 +249,7 @@
             "metadata": {
                 "description": "Email addresses for receiving alerts"
             }
-        },
-        "serverName": {
-            "type": "string",
-            "defaultValue": "testsqltest"
-        }
+        }      
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
