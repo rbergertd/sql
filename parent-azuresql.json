@@ -290,7 +290,7 @@
                 "db2"
             ],
             "metadata": {
-                "description": "The SQL Databases names."
+                "description": "The SQL Databases names. You can add/remove databases by following the default naming sequence. These databases will all be added to the ElasticPool (if applicable)."
             }
         },
         "databaseCollation": {
