@@ -135,7 +135,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('sqlAtpStorage')]",
+            "name": "[variables('sqlVaStorage')]",
             "apiVersion": "2018-02-01",
             "location": "[resourceGroup().location]",
             "sku": {
