@@ -20,6 +20,28 @@
                 "description": "The SQL Server name."
             }
         },
+        "enableAds": {
+            "type": "bool",
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Enable Advanced Data Security and some security default policies."
+            }
+        },
+        "enableVa": {
+            "type": "bool",
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Enable Vulnerability Assessment scans."
+            }
+        },
         "elasticPoolName": {
             "type": "string",
             "metadata": {
@@ -106,7 +128,8 @@
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
-        "sqlAtpStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]",
+        "sqlVaStorage": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
+        "uniqueStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]",
         "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools/',parameters('serverName'), parameters('elasticPoolName'))]"
     },
     "resources": [
@@ -123,7 +146,7 @@
         },
         {
             "apiVersion": "2017-10-01-preview",
-            "location": "[variables('resourceGroupLocation')]",
+            "location": "[resourceGroup().location]",
             "name": "[parameters('serverName')]",
             "properties": {
                 "administratorLogin": "[parameters('administratorLogin')]",
@@ -133,52 +156,39 @@
             "type": "Microsoft.Sql/servers",
             "resources": [
                 {
-                    "type": "securityAlertPolicies",
-                    "name": "SQLSecurityAlerts",
+                    "condition": "[parameters('enableADS')]",
                     "apiVersion": "2017-03-01-preview",
+                    "type": "securityAlertPolicies",
+                    "name": "Default",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
                     ],
                     "properties": {
                         "state": "Enabled",
+                        "disabledAlerts": [],
                         "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
                     }
                 },
                 {
-                    "type": "vulnerabilityAssessments",
-                    "name": "SQLVulnerabilityAssessments",
+                    "condition": "[parameters('enableVA')]",
                     "apiVersion": "2018-06-01-preview",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
-                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
-                    ],
+                    "type": "vulnerabilityAssessments",
+                    "name": "Default",
                     "properties": {
-                        "storageContainerPath": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage'))).primaryEndpoints.blob, 'vulnerability-assessment')]",
-                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-02-01').keys[0].value]",
+                        "storageContainerPath": "[if(parameters('enableVA'), concat(reference(variables('sqlVaStorage'), '2018-02-01').primaryEndpoints.blob, 'vulnerability-assessment'), '')]",
+                        "storageAccountAccessKey": "[if(parameters('enableVA'), listKeys(variables('sqlVaStorage'), '2018-02-01').keys[0].value, '')]",
                         "recurringScans": {
                             "isEnabled": true,
                             "emailSubscriptionAdmins": true,
-                            "emails": "[parameters('alertEmailAddresses')]"
+                            "emails": []
                         }
-                    }
-                },
-                {
-                    "type": "auditingSettings",
-                    "name": "SQLAuditingSettings",
-                    "apiVersion": "2017-03-01-preview",
+                    },
                     "dependsOn": [
-                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
-                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
-                    ],
-                    "properties": {
-                        "state": "Enabled",
-                        "storageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').primaryEndpoints.blob]",
-                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').keys[0].value]",
-                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
-                        "auditActionsAndGroups": null,
-                        "isStorageSecondaryKeyInUse": false
-                    }
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlVaStorage'))]",
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
+                    ]
                 }
             ]
         },

@@ -2,6 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "elasticPool": {
+            "type": "string",
+            "defaultValue": "Yes",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
         "administratorLogin": {
             "type": "string",
             "metadata": {
@@ -19,36 +27,6 @@
             "metadata": {
                 "description": "The SQL Server name."
             }
-        },
-        "enableAds": {
-            "type": "bool",
-            "defaultValue": true,
-            "allowedValues": [
-                true,
-                false
-            ],
-            "metadata": {
-                "description": "Enable Advanced Data Security and some security default policies."
-            }
-        },
-        "enableVa": {
-            "type": "bool",
-            "defaultValue": true,
-            "allowedValues": [
-                true,
-                false
-            ],
-            "metadata": {
-                "description": "Enable Vulnerability Assessment scans."
-            }
-        },
-        "elasticPool": {
-            "type": "string",
-            "defaultValue": "Yes",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ]
         },
         "elasticPoolName": {
             "type": "string",
@@ -302,6 +280,7 @@
                 "BC_Gen5_32",
                 "BC_Gen5_40",
                 "BC_Gen5_80"
+        
             ]
         },
         "databaseNames": {
@@ -324,13 +303,13 @@
         "alertEmailAddresses": {
             "type": "array",
             "defaultValue": [
-                "user1@example.com",
-                "user2@example.com"
+              "user1@example.com",
+              "user2@example.com"
             ],
             "metadata": {
-                "description": "Email addresses for receiving alerts."
+              "description": "Email addresses for receiving alerts."
             }
-        }
+          }
     },
     "variables": {
         "templateUri": "https://raw.githubusercontent.com/rbergertd/sql/master/"
@@ -389,13 +368,7 @@
                     },
                     "alertEmailAddresses": {
                         "value": "[parameters('alertEmailAddresses')]"
-                    },
-                    "enableAds": {
-                        "value": "[parameters('enableAds')]"
-                    },
-                    "enableVa": {
-                        "value": "[parameters('enableVa')]"
-                    }
+                    } 
                 }
             }
         },
@@ -434,13 +407,8 @@
                     },
                     "serverName": {
                         "value": "[parameters('serverName')]"
-                    },
-                    "enableAds": {
-                        "value": "[parameters('enableAds')]"
-                    },
-                    "enableVa": {
-                        "value": "[parameters('enableVa')]"
                     }
+                    
                 }
             }
         }

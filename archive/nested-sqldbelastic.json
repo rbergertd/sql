@@ -20,66 +20,61 @@
                 "description": "The SQL Server name."
             }
         },
-        "enableAds": {
-            "type": "bool",
-            "defaultValue": true,
-            "allowedValues": [
-                true,
-                false
-            ],
+        "elasticPoolName": {
+            "type": "string",
             "metadata": {
-                "description": "Enable Advanced Data Security and some security default policies."
+                "description": "The Elastic Pool name."
             }
         },
-        "enableVa": {
-            "type": "bool",
-            "defaultValue": true,
+        "elasticPool": {
+            "type": "string",
+            "defaultValue": "Yes",
             "allowedValues": [
-                true,
-                false
-            ],
+                "Yes",
+                "No"
+            ]
+        },
+        "poolLimit": {
+            "type": "string",
+            "defaultValue": "",
             "metadata": {
-                "description": "Enable Vulnerability Assessment scans."
+                "description": "The Elastic Pool vCore Limit"
             }
         },
-        "tier": {
-            "type": "string",
-            "defaultValue": "Standard",
+        "poolSize": {
+            "type": "int",
+            "defaultValue": 107374182400,
             "metadata": {
-                "description": "Database server Tier. Basic, Standard (S0), Premium (P1)"
-            },
-            "allowedValues": [
-                "Basic",
-                "Standard",
-                "Premium",
-                "GeneralPurpose",
-                "BusinessCritical"
-            ]
+                "description": "The Elastic Pool total storage (in MB)."
+            }
         },
-        "dbSkuName": {
+        "perDatabasePerformanceMin": {
             "type": "string",
-            "defaultValue": "S0",
+            "defaultValue": "",
             "metadata": {
-                "description": "Database tier SKU identifier. Basic. Standard (S0), Premium (P1). If selecting 'Yes' to ElasticPool, you MUST select ElasticPool as the SKU Name."
-            },
-            "allowedValues": [
-                "Basic",
-                "ElasticPool",
-                "S0",
-                "P1",
-                "GP_Gen4_1",
-                "GP_Gen4_2",
-                "GP_Gen4_4",
-                "GP_Gen5_1",
-                "GP_Gen5_2",
-                "GP_Gen5_4",
-                "BC_Gen4_1",
-                "BC_Gen4_2",
-                "BC_Gen4_4",
-                "BC_Gen5_1",
-                "BC_Gen5_2",
-                "BC_Gen5_4"
-            ]
+                "description": "The per database performance minimum."
+            }
+        },
+        "perDatabasePerformanceMax": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The per database performance minimum."
+            }
+        },
+        "epTier": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
+            }
+        },
+        "epSkuName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Elastic Pool tier."
+            }
         },
         "databaseNames": {
             "type": "array",
@@ -111,16 +106,15 @@
     },
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
-        "sqlVaStorage": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
-        "uniqueStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]"
+        "sqlAtpStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]",
+        "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools/',parameters('serverName'), parameters('elasticPoolName'))]"
     },
     "resources": [
         {
-            "condition": "[parameters('enableVA')]",
-            "apiVersion": "2016-01-01",
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('sqlVaStorage')]",
-            "location": "[variables('resourceGroupLocation')]",
+            "name": "[variables('sqlAtpStorage')]",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
             "sku": {
                 "name": "Standard_LRS"
             },
@@ -139,39 +133,52 @@
             "type": "Microsoft.Sql/servers",
             "resources": [
                 {
-                    "condition": "[parameters('enableADS')]",
-                    "apiVersion": "2017-03-01-preview",
                     "type": "securityAlertPolicies",
-                    "name": "Default",
+                    "name": "SQLSecurityAlerts",
+                    "apiVersion": "2017-03-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
                     ],
                     "properties": {
                         "state": "Enabled",
-                        "disabledAlerts": [],
                         "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
                     }
                 },
                 {
-                    "condition": "[parameters('enableVA')]",
-                    "apiVersion": "2018-06-01-preview",
                     "type": "vulnerabilityAssessments",
-                    "name": "Default",
+                    "name": "SQLVulnerabilityAssessments",
+                    "apiVersion": "2018-06-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
+                    ],
                     "properties": {
-                        "storageContainerPath": "[if(parameters('enableVA'), concat(reference(variables('sqlVaStorage'), '2018-02-01').primaryEndpoints.blob, 'vulnerability-assessment'), '')]",
-                        "storageAccountAccessKey": "[if(parameters('enableVA'), listKeys(variables('sqlVaStorage'), '2018-02-01').keys[0].value, '')]",
+                        "storageContainerPath": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage'))).primaryEndpoints.blob, 'vulnerability-assessment')]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-02-01').keys[0].value]",
                         "recurringScans": {
                             "isEnabled": true,
                             "emailSubscriptionAdmins": true,
-                            "emails": []
+                            "emails": "[parameters('alertEmailAddresses')]"
                         }
-                    },
+                    }
+                },
+                {
+                    "type": "auditingSettings",
+                    "name": "SQLAuditingSettings",
+                    "apiVersion": "2017-03-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
-                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlVaStorage'))]",
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
-                    ]
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlAtpStorage'))]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "storageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').primaryEndpoints.blob]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlAtpStorage')), '2018-03-01-preview').keys[0].value]",
+                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+                        "auditActionsAndGroups": null,
+                        "isStorageSecondaryKeyInUse": false
+                    }
                 }
             ]
         },
@@ -212,22 +219,43 @@
             ]
         },
         {
-            "type": "Microsoft.Sql/servers/databases",
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
-            "location": "[variables('resourceGroupLocation')]",
+            "type": "Microsoft.Sql/servers/elasticPools",
+            "condition": "[equals(parameters('elasticPool'), 'Yes')]",
             "apiVersion": "2017-10-01-preview",
             "dependsOn": [
                 "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
             ],
+            "location": "[variables('resourceGroupLocation')]",
+            "name": "[concat(parameters('serverName'), '/', parameters('elasticPoolName'))]",
             "sku": {
-                "name": "[parameters('dbSkuName')]",
-                "tier": "[parameters('tier')]"
+                "name": "[parameters('epSkuName')]",
+                "tier": "[parameters('epTier')]",
+                "capacity": "[parameters('poolLimit')]"
             },
             "properties": {
-                "collation": "[parameters('databaseCollation')]"
+                "perDatabaseSettings": {
+                    "minCapacity": "[parameters('perDatabasePerformanceMin')]",
+                    "maxCapacity": "[parameters('perDatabasePerformanceMax')]"
+                },
+                "storageMB": "[parameters('poolSize')]"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseNames')[copyIndex()])]",
+            "location": "[variables('resourceGroupLocation')]",
+            "condition": "[equals(parameters('elasticPool'), 'Yes')]",
+            "apiVersion": "2017-10-01-preview",
+            "dependsOn": [
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'))]",
+                "[concat('Microsoft.Sql/servers/', parameters('serverName') ,'/elasticpools/', parameters('elasticPoolName'))]"
+            ],
+            "properties": {
+                "collation": "[parameters('databaseCollation')]",
+                "elasticPoolId": "[variables('elasticPoolId')]"
             },
             "copy": {
-                "name": "addDatabases",
+                "name": "addDatabasesInElasticPool",
                 "count": "[length(parameters('databaseNames'))]"
             }
         },
