@@ -181,7 +181,6 @@
                         "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
                         "[concat('Microsoft.Storage/storageAccounts/', variables('sqlVaStorage'))]",
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/vulnerabilityAssessments/Default')]"
-
                     ],
                     "properties": {
                         "state": "Enabled",
@@ -203,7 +202,8 @@
                 "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
             ]
         },
         {
@@ -215,7 +215,8 @@
                 "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/advisors/ForceLastGoodPlan')]"
             ]
         },
         {
@@ -227,7 +228,8 @@
                 "autoExecuteValue": "Disabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/advisors/CreateIndex')]"
             ]
         },
         {
