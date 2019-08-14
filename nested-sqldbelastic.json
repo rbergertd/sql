@@ -182,7 +182,7 @@
                         "recurringScans": {
                             "isEnabled": true,
                             "emailSubscriptionAdmins": true,
-                            "emails": []
+                            "emails": "[parameters('alertEmailAddresses')]"
                         }
                     },
                     "dependsOn": [
