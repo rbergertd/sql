@@ -135,7 +135,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('sqlVaStorage')]",
+            "name": "[variables('sqlAtpStorage')]",
             "apiVersion": "2018-02-01",
             "location": "[resourceGroup().location]",
             "sku": {
@@ -189,6 +189,25 @@
                         "[concat('Microsoft.Storage/storageAccounts/', variables('sqlVaStorage'))]",
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
                     ]
+                },
+                {
+                    "type": "auditingSettings",
+                    "name": "SQLAuditingSettings",
+                    "apiVersion": "2017-03-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
+                        "[concat('Microsoft.Storage/storageAccounts/', variables('sqlVaStorage'))]",
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/vulnerabilityAssessments/Default')]"
+
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "storageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('sqlVaStorage')), '2018-03-01-preview').primaryEndpoints.blob]",
+                        "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('sqlVaStorage')), '2018-03-01-preview').keys[0].value]",
+                        "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+                        "auditActionsAndGroups": null,
+                        "isStorageSecondaryKeyInUse": false
+                    }
                 }
             ]
         },
@@ -201,9 +220,7 @@
                 "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
-
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
         },
         {
@@ -215,10 +232,7 @@
                 "autoExecuteValue": "Enabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/advisors/ForceLastGoodPlan')]"
-
-
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
         },
         {
@@ -230,10 +244,7 @@
                 "autoExecuteValue": "Disabled"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]",
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/advisors/CreateIndex')]"
-
-
+                "[resourceId('Microsoft.Sql/servers', parameters('servername'))]"
             ]
         },
         {
