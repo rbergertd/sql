@@ -112,7 +112,7 @@
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
         "sqlVaStorage": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
-        "uniqueStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]"
+        "uniqueStorage": "[concat('sa', uniqueString(resourceGroup().id, deployment().name))]"
     },
     "resources": [
         {

@@ -129,13 +129,14 @@
     "variables": {
         "resourceGroupLocation": "[resourceGroup().location]",
         "sqlVaStorage": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
-        "uniqueStorage": "[concat('sqlatp', uniqueString(resourceGroup().id, deployment().name))]",
+        "uniqueStorage": "[concat('sa', uniqueString(resourceGroup().id, deployment().name))]",
         "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools/',parameters('serverName'), parameters('elasticPoolName'))]"
     },
     "resources": [
         {
+            "condition": "[parameters('enableVA')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('sqlAtpStorage')]",
+            "name": "[variables('sqlVaStorage')]",
             "apiVersion": "2018-02-01",
             "location": "[resourceGroup().location]",
             "sku": {
