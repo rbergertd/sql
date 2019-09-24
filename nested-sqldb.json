@@ -56,6 +56,9 @@
                 "BusinessCritical"
             ]
         },
+        "maxSizeBytes": {
+            "type": "int"
+        },
         "dbSkuName": {
             "type": "string",
             "defaultValue": "S0",
@@ -245,7 +248,9 @@
                 "tier": "[parameters('tier')]"
             },
             "properties": {
-                "collation": "[parameters('databaseCollation')]"
+                "collation": "[parameters('databaseCollation')]",
+                "maxSizeBytes": "[parameters('maxSizeBytes')]"
+
             },
             "copy": {
                 "name": "addDatabases",

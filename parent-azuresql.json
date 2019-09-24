@@ -304,6 +304,10 @@
                 "BC_Gen5_80"
             ]
         },
+        "maxSizeBytes": {
+            "type": "int",
+            "defaultValue": 34359738368
+        },
         "databaseNames": {
             "type": "array",
             "defaultValue": [
@@ -425,6 +429,9 @@
                     },
                     "tier": {
                         "value": "[parameters('tier')]"
+                    },
+                    "maxSizeBytes": {
+                        "value": "[parameters('maxSizeBytes')]"
                     },
                     "dbSkuName": {
                         "value": "[parameters('dbSkuName')]"
