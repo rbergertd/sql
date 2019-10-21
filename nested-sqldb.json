@@ -163,6 +163,39 @@
             "metadata": {
                 "description": "Email addresses for receiving alerts"
             }
+        },
+        "readScaleOut": {
+            "type": "string",
+            "defaultValue": "Disabled",
+            "allowedValues": [
+                "Enabled",
+                "Disabled"
+            ],
+            "metadata": {
+                "description": "Enable Read Scale-out."
+            }
+        },
+        "zoneRedundant": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Would you like to make this elastic pool/database(s) zone redundant?."
+            }
+        },
+        "numberOfReplicas": {
+            "type": "int",
+            "defaultValue": 0,
+            "allowedValues": [
+                0,
+                1
+            ],
+            "metadata": {
+                "description": "If Zone Redundant is True, set numberOfReplicas to 1."
+            }
         }
     },
     "variables": {
@@ -181,7 +214,8 @@
                 "name": "Standard_LRS"
             },
             "kind": "Storage",
-            "properties": {}
+            "properties": {
+            }
         },
         {
             "apiVersion": "2017-10-01-preview",
@@ -204,7 +238,8 @@
                     ],
                     "properties": {
                         "state": "Enabled",
-                        "disabledAlerts": [],
+                        "disabledAlerts": [
+                        ],
                         "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
                     }
@@ -302,7 +337,13 @@
             },
             "properties": {
                 "collation": "[parameters('databaseCollation')]",
-                "maxSizeBytes": "[parameters('maxSizeBytes')]"
+                "maxSizeBytes": "[parameters('maxSizeBytes')]",
+                "zoneRedundant": "[parameters('zoneRedundant')]",
+                "readScale": "[parameters('readScaleOut')]",
+                "readReplicaCount": "[parameters('numberOfReplicas')]",
+
+
+
 
             },
             "copy": {

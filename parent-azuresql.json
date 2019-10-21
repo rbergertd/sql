@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+    "contentVersion": "1.1.0.0",
     "parameters": {
         "administratorLogin": {
             "type": "string",
@@ -304,10 +304,6 @@
                 "BC_Gen5_80"
             ]
         },
-        "maxSizeBytes": {
-            "type": "int",
-            "defaultValue": 34359738368
-        },
         "databaseNames": {
             "type": "array",
             "defaultValue": [
@@ -317,6 +313,10 @@
             "metadata": {
                 "description": "The SQL Databases names. You can add/remove databases by following the default naming sequence. These databases will all be added to the ElasticPool (if applicable)."
             }
+        },
+        "maxSizeBytes": {
+            "type": "int",
+            "defaultValue": 34359738368
         },
         "databaseCollation": {
             "type": "string",
@@ -333,6 +333,39 @@
             ],
             "metadata": {
                 "description": "Email addresses for receiving alerts."
+            }
+        },
+        "zoneRedundant": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Would you like to make this elastic pool/database(s) zone redundant?."
+            }
+        },
+        "readScaleOut": {
+            "type": "string",
+            "defaultValue": "Disabled",
+            "allowedValues": [
+                "Enabled",
+                "Disabled"
+            ],
+            "metadata": {
+                "description": "Enable Read Scale-out."
+            }
+        },
+        "numberOfReplicas": {
+            "type": "int",
+            "defaultValue": 0,
+            "allowedValues": [
+                0,
+                1
+            ],
+            "metadata": {
+                "description": "If Zone Redundant is True, set numberOfReplicas to 1."
             }
         }
     },
@@ -399,6 +432,9 @@
                     },
                     "enableVa": {
                         "value": "[parameters('enableVa')]"
+                    },
+                    "zoneRedundant": {
+                        "value": "[parameters('zoneRedundant')]"
                     }
                 }
             }
@@ -447,6 +483,15 @@
                     },
                     "enableVa": {
                         "value": "[parameters('enableVa')]"
+                    },
+                    "zoneRedundant": {
+                        "value": "[parameters('zoneRedundant')]"
+                    },
+                    "readScaleOut": {
+                        "value": "[parameters('readScaleOut')]"
+                    },
+                    "numberOfReplicas": {
+                        "value": "[parameters('numberOfReplicas')]"
                     }
                 }
             }

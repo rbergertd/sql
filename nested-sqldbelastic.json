@@ -124,6 +124,17 @@
             "metadata": {
                 "description": "Email addresses for receiving alerts"
             }
+        },
+        "zoneRedundant": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Would you like to make this elastic pool/database(s) zone redundant?."
+            }
         }
     },
     "variables": {
@@ -143,7 +154,8 @@
                 "name": "Standard_LRS"
             },
             "kind": "Storage",
-            "properties": {}
+            "properties": {
+            }
         },
         {
             "apiVersion": "2017-10-01-preview",
@@ -166,7 +178,8 @@
                     ],
                     "properties": {
                         "state": "Enabled",
-                        "disabledAlerts": [],
+                        "disabledAlerts": [
+                        ],
                         "emailAddresses": "[parameters('alertEmailAddresses')]",
                         "emailAccountAdmins": true
                     }
@@ -270,7 +283,9 @@
                     "minCapacity": "[parameters('perDatabasePerformanceMin')]",
                     "maxCapacity": "[parameters('perDatabasePerformanceMax')]"
                 },
-                "storageMB": "[parameters('poolSize')]"
+                "storageMB": "[parameters('poolSize')]",
+                "zoneRedundant": "[parameters('zoneRedundant')]"
+
             }
         },
         {
