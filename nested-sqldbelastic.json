@@ -283,7 +283,7 @@
                     "minCapacity": "[parameters('perDatabasePerformanceMin')]",
                     "maxCapacity": "[parameters('perDatabasePerformanceMax')]"
                 },
-                "storageMB": "[parameters('poolSize')]",
+                "maxSizeBytes": "[parameters('poolSize')]",
                 "zoneRedundant": "[parameters('zoneRedundant')]"
 
             }
